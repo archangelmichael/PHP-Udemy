@@ -2,7 +2,18 @@
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
 	$usersurname = $_POST['usersurname'];
-	echo $username . " " . $usersurname;
+
+	$minNameLength = 4;
+	if (strlen($username) < $minNameLength) {
+		echo "Invalid name";
+	}
+	else if (strlen($usersurname) < $minNameLength) {
+		echo "Invalid surname";
+	}
+	else {
+		echo $username . " " . $usersurname;
+	}
+
 }
  ?>
 
