@@ -1,3 +1,11 @@
+<?php 
+if (isset($_POST['submit'])) {
+	$username = $_POST['username'];
+	$usersurname = $_POST['usersurname'];
+	echo $username . " " . $usersurname;
+}
+ ?>
+
 <!DOCTYPE html>
  <html lang="en">
  	<head>    
@@ -9,6 +17,14 @@
     	<h2>Hello PHP</h2>
 		<ul>
 			<li>
+				<p>Post form data</p>
+				<form action="intro.php" method="post">
+					<input type="text" name="username" placeholder="Enter name">
+					<input type="text" name="usersurname" placeholder="Enter surname">
+					<input type="submit" name="submit">
+				</form>
+			</li>
+			<li>
 				<p>Array Functions</p>
 				<?php 
 				$arrFuncs = [2,543,23,54,-2];
@@ -16,6 +32,9 @@
 				echo min($arrFuncs)."<br>";
 				sort($arrFuncs);
 				print_r($arrFuncs);
+				$arrFuncValue = 23;
+				echo "<br>";
+				echo in_array($arrFuncValue, $arrFuncs) == 1 ? "FOUND" : "NOT FOUND";
 				 ?>
 			</li>
 			<li>
