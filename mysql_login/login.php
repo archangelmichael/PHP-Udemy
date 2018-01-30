@@ -1,5 +1,43 @@
 <?php 
 
+function getUsers($dbConnection) {
+	$query = "SELECT * FROM users";
+	$queryResult = mysqli_query($dbConnection, $query);
+	return $queryResult;
+}
+
+function registerUser($username, $password, $dbConnection) {
+	$query = "INSERT INTO users(name,pass)";
+	$query .= "VALUES ('$username','$password')";
+
+	$queryResult = mysqli_query($dbConnection, $query);
+	if (!$queryResult) {
+		die("Registration failed :" . mysqli_error($dbConnection));
+	}
+	else {
+		echo "Registration complete";
+	}
+}
+
+function findRegisteredUser($users, $username) {
+	foreach ($users as $index => $user) {
+		if ($user["name"] == $username) {
+			return $user;
+		}
+	}
+
+	return null;
+}
+
+function loginUser($user, $username, $password) {
+	if ($user["name"] == $username && $user["pass"] == $password) {
+		echo "Login complete";
+	}
+	else {
+		echo "Invalid password";
+	}
+}
+
 if (isset($_POST['submit'])) {
 	$name = $_POST['username'];
 	$pass = $_POST['password'];
@@ -7,11 +45,34 @@ if (isset($_POST['submit'])) {
 	if ($name && $pass) {
 		$mysqlConn = mysqli_connect('localhost', 'root', '', 'php_basics');
 		if ($mysqlConn) {
-			echo " MySQL connection has been established. ";
-
+			// MySQL connection has been established. 
 		}
 		else {
 			die("Cannot establish connection to MySQL database.");
+		}
+
+		$allUserEntries = getUsers($mysqlConn);
+		if ($allUserEntries) {
+			$allUsersProfiles = [];
+
+			// while ($row = mysqli_fetch_row($allUsers)) {
+			while ($row = mysqli_fetch_assoc($allUserEntries)) {
+				array_push($allUsersProfiles, $row);
+			}
+
+			$foundUser = findRegisteredUser($allUsersProfiles, $name);
+			if ($foundUser) {
+				echo "User found. Verifying credentials...";
+				loginUser($foundUser, $name, $pass);
+			}
+			else { // User does not exist
+				echo "User not found. Attempting to register...";
+				registerUser($name, $pass, $mysqlConn);
+			}
+		}
+		else {
+			echo "No users created. Attempting to register...";
+			registerUser($name, $pass, $mysqlConn);
 		}
 	}
 	else {
