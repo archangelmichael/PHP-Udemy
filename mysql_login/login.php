@@ -1,42 +1,7 @@
-<?php include 'dbconnection.php';
+<?php include 'dbconnection.php'; ?>
+<?php include 'dbfunctions.php' ?>
 
-function getUsers($dbConnection) {
-	$query = "SELECT * FROM users";
-	$queryResult = mysqli_query($dbConnection, $query);
-	return $queryResult;
-}
-
-function registerUser($username, $password, $dbConnection) {
-	$query = "INSERT INTO users(name,pass)";
-	$query .= "VALUES ('$username','$password')";
-
-	$queryResult = mysqli_query($dbConnection, $query);
-	if (!$queryResult) {
-		die("Registration failed :" . mysqli_error($dbConnection));
-	}
-	else {
-		echo "Registration complete";
-	}
-}
-
-function findRegisteredUser($users, $username) {
-	foreach ($users as $index => $user) {
-		if ($user["name"] == $username) {
-			return $user;
-		}
-	}
-
-	return null;
-}
-
-function loginUser($user, $username, $password) {
-	if ($user["name"] == $username && $user["pass"] == $password) {
-		echo "Login complete";
-	}
-	else {
-		echo "Invalid password";
-	}
-}
+<?php
 
 if (isset($_POST['submit'])) {
 	$name = $_POST['username'];
@@ -52,19 +17,19 @@ if (isset($_POST['submit'])) {
 				array_push($allUsersProfiles, $row);
 			}
 
-			$foundUser = findRegisteredUser($allUsersProfiles, $name);
+			$foundUser = findExistingUser($allUsersProfiles, $name);
 			if ($foundUser) {
 				echo "User found. Verifying credentials...";
 				loginUser($foundUser, $name, $pass);
 			}
 			else { // User does not exist
 				echo "User not found. Attempting to register...";
-				registerUser($name, $pass, $dbConn);
+				registerUser($dbConn, $name, $pass);
 			}
 		}
 		else {
 			echo "No users created. Attempting to register...";
-			registerUser($name, $pass, $dbConn);
+			registerUser($dbConn, $name, $pass);
 		}
 	}
 	else {
