@@ -53,7 +53,23 @@
 				}
 				 ?>
 			</li>
-			<li></li>
+			<li>
+				<p>Loops</p>
+				<?php 
+				while ($a < 10) {
+				 	echo $a . '<br>';
+				 	$a += 1;
+				 } 
+
+				 for ($i=0; $i < 4; $i++) { 
+				 	echo $i . '<br>';
+				 }
+
+				 foreach ($numsArr as $key => $value) {
+				 	echo 'key:' . $key . ' value:' . $value . '<br>';
+				 }
+				 ?>
+			</li>
 			<li></li>
 		</ul>
 	</body> 
