@@ -1,3 +1,31 @@
+<?php 
+
+if (isset($_POST['submit'])) {
+	$name = $_POST['username'];
+	$pass = $_POST['password'];
+
+	if ($name && $pass) {
+		$mysqlConn = mysqli_connect('localhost', 'root', '', 'php_basics');
+		if ($mysqlConn) {
+			echo " MySQL connection has been established. ";
+
+		}
+		else {
+			die("Cannot establish connection to MySQL database.");
+		}
+	}
+	else {
+		echo "Invalid username or password";
+	}
+}
+else {
+	echo "No form data received";
+}
+
+ ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +48,7 @@
 					<input type="password" name="password" class="form-control" placeholder="Enter password">
 				</div>
 
-				<input class="btn btn-primary" type="submit" value="LOGIN">
+				<input class="btn btn-primary" type="submit" name="submit" value="LOGIN">
 			</form>
 		</div>
 	</div>
