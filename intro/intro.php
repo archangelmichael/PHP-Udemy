@@ -92,6 +92,21 @@
 
 				 ?>
 			</li>
+			<li>
+				<p>Constants</p>
+				<?php 
+				define("GLOBAL_VAR", "Global");
+				echo GLOBAL_VAR.'<br>';
+
+				$x = 6;
+				function showX() {
+					global $x;
+					echo $x.'<br>';
+				}
+
+				showX();
+				 ?>
+			</li>
 		</ul>
 	</body> 
 </html>
