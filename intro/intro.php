@@ -35,7 +35,24 @@
 				print_r($namesArr);
 				 ?>
 			</li>
-			<li></li>
+			<li>
+				<p>Conditionals</p>
+				<?php
+				$a = 5; 
+				if ($a < 5) {
+					echo "Smaller".'<br>';
+				}
+				else {
+					echo "Bigger or equal".'<br>';
+				}
+
+				switch ($a) {
+					case '1': echo 'one'; break;
+					case 5 : echo 'five'; break;
+					default: echo 'default'; break;
+				}
+				 ?>
+			</li>
 			<li></li>
 			<li></li>
 		</ul>
