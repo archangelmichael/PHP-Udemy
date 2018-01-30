@@ -1,4 +1,4 @@
-<?php 
+<?php include 'dbconnection.php';
 
 function getUsers($dbConnection) {
 	$query = "SELECT * FROM users";
@@ -43,15 +43,7 @@ if (isset($_POST['submit'])) {
 	$pass = $_POST['password'];
 
 	if ($name && $pass) {
-		$mysqlConn = mysqli_connect('localhost', 'root', '', 'php_basics');
-		if ($mysqlConn) {
-			// MySQL connection has been established. 
-		}
-		else {
-			die("Cannot establish connection to MySQL database.");
-		}
-
-		$allUserEntries = getUsers($mysqlConn);
+		$allUserEntries = getUsers($dbConn);
 		if ($allUserEntries) {
 			$allUsersProfiles = [];
 
@@ -67,12 +59,12 @@ if (isset($_POST['submit'])) {
 			}
 			else { // User does not exist
 				echo "User not found. Attempting to register...";
-				registerUser($name, $pass, $mysqlConn);
+				registerUser($name, $pass, $dbConn);
 			}
 		}
 		else {
 			echo "No users created. Attempting to register...";
-			registerUser($name, $pass, $mysqlConn);
+			registerUser($name, $pass, $dbConn);
 		}
 	}
 	else {
