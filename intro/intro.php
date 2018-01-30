@@ -70,7 +70,28 @@
 				 }
 				 ?>
 			</li>
-			<li></li>
+			<li>
+				<p>Functions</p>
+				<?php 
+
+				function greet($value='Anonymous')
+				{
+
+					echo "Hello " . $value . '<br>'; 
+				}
+
+				greet();
+				greet('Someone');
+
+				function increment($num1) {
+					return $num1 + 1;
+				}
+
+				$newNum = increment(5);
+				echo $newNum;
+
+				 ?>
+			</li>
 		</ul>
 	</body> 
 </html>
