@@ -11,9 +11,8 @@ if (isset($_POST['submit'])) {
 		echo "Invalid surname";
 	}
 	else {
-		echo $username . " " . $usersurname;
+		echo "Welcome ".$username." ".$usersurname;
 	}
-
 }
  ?>
 
@@ -28,11 +27,19 @@ if (isset($_POST['submit'])) {
     	<h2>Hello PHP</h2>
 		<ul>
 			<li>
-				<p>Post form data</p>
+				<p>Post form data to externally</p>
+				<form action="external.php" method="post">
+					<input type="text" name="username" placeholder="Enter name">
+					<input type="text" name="usersurname" placeholder="Enter surname">
+					<input type="submit" name="submit" text="Send externally">
+				</form>
+			</li>
+			<li>
+				<p>Post form data locally</p>
 				<form action="intro.php" method="post">
 					<input type="text" name="username" placeholder="Enter name">
 					<input type="text" name="usersurname" placeholder="Enter surname">
-					<input type="submit" name="submit">
+					<input type="submit" name="submit" text="Send locally">
 				</form>
 			</li>
 			<li>
